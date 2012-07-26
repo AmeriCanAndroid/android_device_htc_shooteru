@@ -42,7 +42,9 @@ BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := shooteru
 COMMON_GLOBAL_CFLAGS += -DQCOM_ROTATOR_KERNEL_FORMATS
 TARGET_USES_OVERLAY := false
 
-#TARGET_HARDWARE_3D := true
+BOARD_HTC_3D_SUPPORT := true
+
+TARGET_HARDWARE_3D := true
 
 # cat /proc/emmc
 #dev:        size     erasesize name
