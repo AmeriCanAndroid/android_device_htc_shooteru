@@ -19,7 +19,67 @@ DEVICE=shooteru
 
 mkdir -p ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
 
-# For the time being, we will use our git based proprietary files as the source of the files.  Will also comment out setup-makefiles.sh
+adb pull /system/bin/3D_calibration ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/bin/3D_calibration_main ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/bin/charging ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/bin/htc_ebdlogd ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/bin/htcbatt ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/bin/load-modem.sh ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/bin/logcat2 ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/bin/mpdecision ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/bin/netmgrd ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/bin/qmuxd ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/bin/rmt_storage ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/bin/snd3254 ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/bin/thermald ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/xbin/wireless_modem ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/lib/egl/eglsubAndroid.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/lib/egl/libEGL_adreno200.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/lib/egl/libGLESv1_CM_adreno200.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/lib/egl/libGLESv2_adreno200.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/lib/egl/libq3dtools_adreno200.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/lib/libgsl.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/lib/libC2D2.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/lib/libOpenVG.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/lib/libsc-a2xx.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/lib/libhtc_acoustic.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/lib/libaudioalsa.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/lib/libaudcal.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/lib/libaudcalwb.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/lib/libaudcal_nel.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/lib/libacdbloader.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/lib/libacdbmapper.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/lib/libdiag.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/lib/libdll.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/lib/libdsi_netctrl.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/lib/libdsutils.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/lib/libidl.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/lib/libnetmgr.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/lib/libqdp.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/lib/libqmi.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/lib/libhtc_ril.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/lib/hw/camera.default.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/lib/libcamerapp.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/lib/libcameraLN.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/lib/libcameraSP.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/lib/libcameraface.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/lib/libchromatix_qs_s5k4e1_preview.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/lib/libchromatix_qs_s5k4e1_video.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/lib/libmmmpo.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/lib/liboemcamera.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/lib/liboemcamera_main.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/lib/libOlaEngine.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/lib/libposteffect.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/lib/libgemini.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/lib/libmmipl.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/lib/libmmjpeg.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/lib/libmm-color-convertor.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/lib/libv8.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/lib/hw/lights.msm8660.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/lib/libmpl.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/lib/libmllite.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/lib/libmlplatform.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
+adb pull /system/lib/hw/sensors.shooteru.so ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
 
 (cat << EOF) | sed s/__DEVICE__/$DEVICE/g | sed s/__MANUFACTURER__/$MANUFACTURER/g > ../../../vendor/$MANUFACTURER/$DEVICE/$DEVICE-vendor-blobs.mk
 # Copyright (C) 2010 The Android Open Source Project
@@ -38,7 +98,6 @@ mkdir -p ../../../vendor/$MANUFACTURER/$DEVICE/proprietary
 
 # This file is generated by device/$MANUFACTURER/__DEVICE__/extract-files.sh
 
-# Prebuilt libraries that are needed to build open-source libraries
 # Prebuilt libraries that are needed to build open-source libraries
 PRODUCT_COPY_FILES += \\
     vendor/__MANUFACTURER__/__DEVICE__/proprietary/camera.default.so:obj/lib/hw/camera.default.so \\
@@ -112,4 +171,5 @@ PRODUCT_COPY_FILES += \\
     vendor/__MANUFACTURER__/__DEVICE__/proprietary/sensors.shooteru.so:system/lib/hw/sensors.shooteru.so
 EOF
 
-# ./setup-makefiles.sh
+./setup-makefiles.sh
+
