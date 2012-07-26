@@ -47,7 +47,7 @@ ro.ril.enable.dtm=0
 ro.ril.gprsclass=12
 ro.ril.hsdpa.category=10
 ro.ril.hsupa.category=6
-ro.ril.hsxpa=3
+ro.ril.hsxpa=2
 
 # Default network type.
 # 0 => WCDMA preferred.
@@ -57,7 +57,7 @@ ro.telephony.default_network=0
 ro.ril.set.mtu1472=1
 
 # For HSDPA low throughput
-ro.ril.disable.power.collapse=1
+ro.ril.disable.power.collapse=0
 
 # For China NEL
 ro.ril.enable.prl.recognition=1
