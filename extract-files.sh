@@ -52,6 +52,7 @@ PRODUCT_COPY_FILES += \\
     vendor/__MANUFACTURER__/__DEVICE__/proprietary/3D_calibration:system/bin/3D_calibration \\
     vendor/__MANUFACTURER__/__DEVICE__/proprietary/3D_calibration_main:system/bin/3D_calibration_main \\
     vendor/__MANUFACTURER__/__DEVICE__/proprietary/charging:system/bin/charging \\
+    vendor/__MANUFACTURER__/__DEVICE__/proprietary/hdmid:system/bin/hdmid \\
     vendor/__MANUFACTURER__/__DEVICE__/proprietary/htc_ebdlogd:system/bin/htc_ebdlogd \\
     vendor/__MANUFACTURER__/__DEVICE__/proprietary/htcbatt:system/bin/htcbatt \\
     vendor/__MANUFACTURER__/__DEVICE__/proprietary/load-modem.sh:system/bin/load-modem.sh \\
@@ -72,6 +73,7 @@ PRODUCT_COPY_FILES += \\
     vendor/__MANUFACTURER__/__DEVICE__/proprietary/libOpenVG.so:system/lib/libOpenVG.so \\
     vendor/__MANUFACTURER__/__DEVICE__/proprietary/libC2D2.so:system/lib/libC2D2.so \\
     vendor/__MANUFACTURER__/__DEVICE__/proprietary/libsc-a2xx.so:system/lib/libsc-a2xx.so \\
+    vendor/__MANUFACTURER__/__DEVICE__/proprietary/libsc-a3xx.so:system/lib/libsc-a3xx.so \\
     vendor/__MANUFACTURER__/__DEVICE__/proprietary/libhtc_acoustic.so:system/lib/libhtc_acoustic.so \\
     vendor/__MANUFACTURER__/__DEVICE__/proprietary/libaudioalsa.so:system/lib/libaudioalsa.so \\
     vendor/__MANUFACTURER__/__DEVICE__/proprietary/libaudcal.so:system/lib/libaudcal.so \\
