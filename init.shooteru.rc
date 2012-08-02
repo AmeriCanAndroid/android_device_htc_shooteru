@@ -342,7 +342,7 @@ on property:ro.build.tags=release-keys
 service qmuxd /system/bin/qmuxd
     class late_start
     user radio
-    group radio audio bluetooth gps
+    group radio audio
 
 service netmgrd /system/bin/netmgrd
     class late_start
