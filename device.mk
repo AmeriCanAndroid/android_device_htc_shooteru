@@ -153,7 +153,7 @@ endif
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_KERNEL):kernel \
-    device/htc/shooteru/prebuilt/kineto_gan.ko:system/lib/modules/kineto_gan.ko \
+    device/htc/shooteru/prebuilt/bcmdhd.ko:system/lib/modules/bcmdhd.ko \
 
 ## htc audio settings
 $(call inherit-product, device/htc/shooteru/media_htcaudio.mk)

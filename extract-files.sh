@@ -106,4 +106,4 @@ PRODUCT_COPY_FILES += \\
     vendor/__MANUFACTURER__/__DEVICE__/proprietary/sensors.shooteru.so:system/lib/hw/sensors.shooteru.so
 EOF
 
-# ./setup-makefiles.sh
+./setup-makefiles.sh
