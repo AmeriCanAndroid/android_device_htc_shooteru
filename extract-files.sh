@@ -89,6 +89,7 @@ PRODUCT_COPY_FILES += \\
     vendor/__MANUFACTURER__/__DEVICE__/proprietary/libhtc_ril.so:system/lib/libhtc_ril.so \\
     vendor/__MANUFACTURER__/__DEVICE__/proprietary/camera.default.so:system/lib/hw/camera.default.so \\
     vendor/__MANUFACTURER__/__DEVICE__/proprietary/libcamerapp.so:system/lib/libcamerapp.so \\
+    vendor/__MANUFACTURER__/__DEVICE__/proprietary/libcamera_client.so:system/lib/libcamera_client.so \\
     vendor/__MANUFACTURER__/__DEVICE__/proprietary/libcameraLN.so:system/lib/libcameraLN.so \\
     vendor/__MANUFACTURER__/__DEVICE__/proprietary/libcameraSP.so:system/lib/libcameraSP.so \\
     vendor/__MANUFACTURER__/__DEVICE__/proprietary/libcameraface.so:system/lib/libcameraface.so \\
