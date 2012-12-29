@@ -20,9 +20,7 @@
 # details, it only fundamentally contains two inherit-product
 # lines, full and maguro, hence its name.
 #
- 
-# Get the long list of APNs
-PRODUCT_COPY_FILES := device/sample/etc/apns-full-conf.xml:system/etc/apns-conf.xml
+
  
 # Camera
 PRODUCT_PACKAGES := \
@@ -36,7 +34,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 $(call inherit-product, device/htc/shooteru/device.mk)
 
 # Set those variables here to overwrite the inherited values.
-PRODUCT_NAME := full_shooteru
+PRODUCT_NAME := htc_shooteru
 PRODUCT_DEVICE := shooteru
 PRODUCT_BRAND := HTC
 PRODUCT_MANUFACTURER := HTC

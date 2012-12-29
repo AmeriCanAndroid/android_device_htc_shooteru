@@ -2,12 +2,7 @@
 # system.prop for device
 #
 #
-debug.sf.hw=1
-debug.composition.type=dyn
-ro.sf.compbypass.enable=1
 dev.pm.dyn_samplingrate=1
-debug.enabletr=true
-
 lpa.use-stagefright=true
 lpa.decode=true
 
@@ -17,12 +12,11 @@ com.qc.hdmi_out=true
 ro.hdmi.enable=true
 
 # board has 3D panel
-#persist.user.panel3D=1
+persist.user.panel3D=1
 
 rild.libpath=/system/lib/libhtc_ril.so
 # htc v4 ril
 ro.telephony.ril.v3=signalstrength
-ro.ril.enable.garbage.filter=0
 
 ro.ril.ecc.HTC-GCC=999,112,997
 ro.ril.ecc.HTC-WWE=999
@@ -58,7 +52,7 @@ ro.telephony.default_network=0
 ro.ril.set.mtu1472=1
 
 # For HSDPA low throughput
-ro.ril.disable.power.collapse=0
+ro.ril.disable.power.collapse=1
 
 # For China NEL
 ro.ril.enable.prl.recognition=1
@@ -80,18 +74,13 @@ ro.ril.def.agps.mode=2
 # This is a 16.16 fixed point number
 ro.opengles.version=131072
 
-mobiledata.interfaces=rmnet0,wlan0,gprs,ppp0
+mobiledata.interfaces=rmnet0
 
 # For emmc phone storage
-ro.phone_storage=0
+ro.phone_storage = 0
 
 # Make rmt_storage start at init
-ro.emmc=1
-
-# System property for cabl
-ro.qualcomm.cabl=1
-
-ro.com.google.locationfeatures=1
+ro.emmc = 1
 
 # UMS
 persist.sys.usb.config=mass_storage,adb
