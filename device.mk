@@ -17,10 +17,12 @@
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
 # common msm8660 configs - ignoring property overrides
+IGNORE_MSM8660_PROPERTIES := $(PRODUCT_PROPERTY_OVERRIDES)
 $(call inherit-product, device/htc/msm8660-common/msm8660.mk)
+PRODUCT_PROPERTY_OVERRIDES := $(IGNORE_MSM8660_PROPERTIES)
 
 ## The gps config appropriate for this device
-PRODUCT_COPY_FILES += device/common/gps/gps.conf_EU:system/etc/gps.conf
+PRODUCT_COPY_FILES += device/common/gps/gps.conf_US:system/etc/gps.conf
 
 ## recovery and custom charging
 PRODUCT_COPY_FILES += \
@@ -49,6 +51,12 @@ PRODUCT_COPY_FILES += \
 
 ## (2) Also get non-open-source specific aspects if available
 $(call inherit-product-if-exists, vendor/htc/shooteru/shooteru-vendor.mk)
+
+# Kernel Modules
+PRODUCT_COPY_FILES += \
+    device/htc/shooteru/prebuilt/bcm4329.ko:system/lib/modules/bcm4329.ko \
+    device/htc/shooteru/prebuilt/kineto_gan.ko:system/lib/modules/kineto_gan.ko \
+    device/htc/shooteru/prebuilt/msm-buspm-dev.ko:system/lib/modules/msm-buspm-dev.ko
 
 ## misc
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -166,7 +174,7 @@ PRODUCT_PACKAGES += \
     setup_fs
 
 # media profiles and capabilities spec
-$(call inherit-product, device/htc/shooter/media_a1026.mk)
+$(call inherit-product, device/htc/shooteru/media_a1026.mk)
 
 # misc
 PRODUCT_COPY_FILES += \

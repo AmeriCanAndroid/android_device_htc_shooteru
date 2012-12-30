@@ -288,7 +288,7 @@ service bugreport /system/bin/dumpstate -d -v -o /sdcard/bugreports/bugreport
     oneshot
     keycodes 114 115
 
-service hciattach /system/bin/brcm_patchram_plus --enable_hci \
+service hciattach /system/bin/brcm_patchram_plus --enable_hci --enable_lpm \
     --tosleep 50000 --baudrate 3000000 --use_baudrate_for_download \
     --patchram /vendor/firmware/bcm4329.hcd /dev/ttyHS0
     class main
