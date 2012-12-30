@@ -69,8 +69,7 @@ $(call inherit-product-if-exists, vendor/htc/shooteru/shooteru-vendor.mk)
 PRODUCT_COPY_FILES += \
     device/htc/shooteru/prebuilt/bcm4329.ko:system/lib/modules/bcm4329.ko \
     device/htc/shooteru/prebuilt/kineto_gan.ko:system/lib/modules/kineto_gan.ko \
-    device/htc/shooteru/prebuilt/msm-buspm-dev.ko:system/lib/modules/msm-buspm-dev.ko \
-    device/htc/shooteru/prebuilt/spidev.ko:system/lib/modules/spidev.ko
+    device/htc/shooteru/prebuilt/msm-buspm-dev.ko:system/lib/modules/msm-buspm-dev.ko
 
 ## misc
 PRODUCT_PROPERTY_OVERRIDES += \
