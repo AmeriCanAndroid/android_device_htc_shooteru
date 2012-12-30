@@ -161,11 +161,11 @@ $(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4329
 
 # Adreno Drivers
 PRODUCT_COPY_FILES += \
-    device/htc/shooter/firmware/a225_pfp.fw:system/etc/firmware/a225_pfp.fw \
-    device/htc/shooter/firmware/a225_pm4.fw:system/etc/firmware/a225_pm4.fw \
-    device/htc/shooter/firmware/a225p5_pm4.fw:system/etc/firmware/a225p5_pm4.fw \
-    device/htc/shooter/firmware/yamato_pfp.fw:system/etc/firmware/yamato_pfp.fw \
-    device/htc/shooter/firmware/yamato_pm4.fw:system/etc/firmware/yamato_pm4.fw
+    device/htc/shooteru/firmware/a225_pfp.fw:system/etc/firmware/a225_pfp.fw \
+    device/htc/shooteru/firmware/a225_pm4.fw:system/etc/firmware/a225_pm4.fw \
+    device/htc/shooteru/firmware/a225p5_pm4.fw:system/etc/firmware/a225p5_pm4.fw \
+    device/htc/shooteru/firmware/yamato_pfp.fw:system/etc/firmware/yamato_pfp.fw \
+    device/htc/shooteru/firmware/yamato_pm4.fw:system/etc/firmware/yamato_pm4.fw
 
 # Filesystem management tools
 PRODUCT_PACKAGES += \
