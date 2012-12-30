@@ -16,26 +16,11 @@
 
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
-# Files which override msm8660
-
-## New Adreno Drivers
-PRODUCT_COPY_FILES += \
-    device/htc/shooteru/firmware/a225_pfp.fw:system/etc/firmware/a225_pfp.fw \
-    device/htc/shooteru/firmware/a225_pm4.fw:system/etc/firmware/a225_pm4.fw \
-    device/htc/shooteru/firmware/a225p5_pm4.fw:system/etc/firmware/a225p5_pm4.fw \
-    device/htc/shooteru/firmware/yamato_pfp.fw:system/etc/firmware/yamato_pfp.fw \
-    device/htc/shooteru/firmware/yamato_pm4.fw:system/etc/firmware/yamato_pm4.fw \
-    device/htc/shooteru/firmware/leia_pfp_470.fw:system/etc/firmware/leia_pfp_470.fw \
-    device/htc/shooteru/firmware/leia_pm4_470.fw:system/etc/firmware/leia_pm4_470.fw \
-    device/htc/shooteru/firmware/vidc_1080p.fw:system/etc/firmware/vidc_1080p.fw
-
 # common msm8660 configs - ignoring property overrides
-IGNORE_MSM8660_PROPERTIES := $(PRODUCT_PROPERTY_OVERRIDES)
 $(call inherit-product, device/htc/msm8660-common/msm8660.mk)
-PRODUCT_PROPERTY_OVERRIDES := $(IGNORE_MSM8660_PROPERTIES)
 
 ## The gps config appropriate for this device
-PRODUCT_COPY_FILES += device/common/gps/gps.conf_US:system/etc/gps.conf
+PRODUCT_COPY_FILES += device/common/gps/gps.conf_EU:system/etc/gps.conf
 
 ## recovery and custom charging
 PRODUCT_COPY_FILES += \
@@ -65,12 +50,6 @@ PRODUCT_COPY_FILES += \
 ## (2) Also get non-open-source specific aspects if available
 $(call inherit-product-if-exists, vendor/htc/shooteru/shooteru-vendor.mk)
 
-# Kernel Modules
-PRODUCT_COPY_FILES += \
-    device/htc/shooteru/prebuilt/bcm4329.ko:system/lib/modules/bcm4329.ko \
-    device/htc/shooteru/prebuilt/kineto_gan.ko:system/lib/modules/kineto_gan.ko \
-    device/htc/shooteru/prebuilt/msm-buspm-dev.ko:system/lib/modules/msm-buspm-dev.ko
-
 ## misc
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.setupwizard.enable_bypass=1 \
@@ -87,7 +66,8 @@ PRODUCT_COPY_FILES += \
 
 # GPS and Light
 PRODUCT_PACKAGES += \
-    gps.shooteru
+    gps.shooteru \
+    lights.msm8660
 
 ## dsp Audio
 PRODUCT_COPY_FILES += \
@@ -137,8 +117,7 @@ PRODUCT_COPY_FILES += \
 # Custom media config
 PRODUCT_COPY_FILES += \
      device/htc/shooteru/configs/media_profiles.xml:system/etc/media_profiles.xml \
-     device/htc/shooteru/configs/media_codecs.xml:system/etc/media_codecs.xml \
-     device/htc/shooteru/configs/audio_policy.conf:system/etc/audio_policy.conf
+     device/htc/msm8660-common/configs/media_codecs.xml:system/etc/media_codecs.xml
 
 # keylayouts
 PRODUCT_COPY_FILES += \
@@ -170,9 +149,24 @@ PRODUCT_COPY_FILES += device/htc/shooteru/configs/thermald.conf:system/etc/therm
 PRODUCT_TAGS += dalvik.gc.type-precise
 
 # Broadcom Network Firmware
+$(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4329/device-bcm.mk)
+
+# Adreno Drivers
 PRODUCT_COPY_FILES += \
-    device/htc/shooteru/firmware/fw_bcm4329.bin:system/vendor/firmware/fw_bcm4329.bin \
-    device/htc/shooteru/firmware/fw_bcm4329_apsta.bin:system/vendor/firmware/fw_bcm4329_apsta.bin
+    device/htc/shooter/firmware/a225_pfp.fw:system/etc/firmware/a225_pfp.fw \
+    device/htc/shooter/firmware/a225_pm4.fw:system/etc/firmware/a225_pm4.fw \
+    device/htc/shooter/firmware/a225p5_pm4.fw:system/etc/firmware/a225p5_pm4.fw \
+    device/htc/shooter/firmware/yamato_pfp.fw:system/etc/firmware/yamato_pfp.fw \
+    device/htc/shooter/firmware/yamato_pm4.fw:system/etc/firmware/yamato_pm4.fw
+
+# Filesystem management tools
+PRODUCT_PACKAGES += \
+    make_ext4fs \
+    e2fsck \
+    setup_fs
+
+# media profiles and capabilities spec
+$(call inherit-product, device/htc/shooter/media_a1026.mk)
 
 # misc
 PRODUCT_COPY_FILES += \

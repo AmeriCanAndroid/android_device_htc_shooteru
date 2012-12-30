@@ -34,7 +34,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 $(call inherit-product, device/htc/shooteru/device.mk)
 
 # Set those variables here to overwrite the inherited values.
-PRODUCT_NAME := htc_shooteru
+PRODUCT_NAME := full_shooteru
 PRODUCT_DEVICE := shooteru
 PRODUCT_BRAND := HTC
 PRODUCT_MANUFACTURER := HTC
