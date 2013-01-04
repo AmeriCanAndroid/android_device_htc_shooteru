@@ -43,11 +43,10 @@ BOARD_KERNEL_PAGE_SIZE := 2048
 
 BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := shooteru
 
+TARGET_ARCH := arm
+
 # 3D Support
 TARGET_HARDWARE_3D := true
-
-## Kernel Details
-TARGET_KERNEL_CONFIG := shooter_u_defconfig
 
 # Camera
 TARGET_DISABLE_ARM_PIE := true
@@ -90,5 +89,7 @@ BOARD_BOOTIMAGE_PARTITION_SIZE := 16777216
 BOARD_FLASH_BLOCK_SIZE := 262144
 
 ## Kernel Details
+TARGET_KERNEL_CONFIG := shooter_u_defconfig
+TARGET_KERNEL_SOURCE := kernel/htc/shooteru
 TARGET_PREBUILT_KERNEL := device/htc/shooteru/prebuilt/zImage
 
