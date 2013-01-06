@@ -50,6 +50,12 @@ PRODUCT_COPY_FILES += \
 ## (2) Also get non-open-source specific aspects if available
 $(call inherit-product-if-exists, vendor/htc/shooteru/shooteru-vendor.mk)
 
+# Kernel Modules
+PRODUCT_COPY_FILES += \
+    device/htc/shooteru/prebuilt/bcm4329.ko:system/lib/modules/bcm4329.ko \
+    device/htc/shooteru/prebuilt/kineto_gan.ko:system/lib/modules/kineto_gan.ko \
+    device/htc/shooteru/prebuilt/msm-buspm-dev.ko:system/lib/modules/msm-buspm-dev.ko
+
 ## misc
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.setupwizard.enable_bypass=1 \
@@ -127,11 +133,6 @@ PRODUCT_COPY_FILES += \
     device/htc/shooteru/keylayout/atmel-touchscreen.kl:system/usr/keylayout/atmel-touchscreen.kl \
     device/htc/shooteru/keylayout/shooteru-keypad.kl:system/usr/keylayout/shooteru-keypad.kl
 
-# Kernel Modules
-PRODUCT_COPY_FILES += \
-    device/htc/shooteru/prebuilt/kineto_gan.ko:system/lib/modules/kineto_gan.ko \
-    device/htc/shooteru/prebuilt/msm-buspm-dev.ko:system/lib/modules/msm-buspm-dev.ko
-
 # Keychars
 PRODUCT_COPY_FILES += \
     device/htc/shooteru/keychars/shooteru-keypad.kcm:system/usr/keychars/shooteru-keypad.kcm \
@@ -181,4 +182,3 @@ PRODUCT_COPY_FILES += \
 $(call inherit-product, device/htc/shooteru/media_htcaudio.mk)
 
 $(call inherit-product, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
-
