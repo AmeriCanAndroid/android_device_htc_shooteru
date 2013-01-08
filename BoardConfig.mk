@@ -45,6 +45,7 @@ TARGET_HARDWARE_3D := true
 
 ## Kernel Details
 TARGET_KERNEL_CONFIG := shooter_u_defconfig
+TARGET_PREBUILT_KERNEL := device/htc/shooteru/prebuilt/zImage
 
 # Camera
 TARGET_DISABLE_ARM_PIE := true
