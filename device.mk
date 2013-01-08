@@ -174,7 +174,7 @@ PRODUCT_PACKAGES += \
     setup_fs
 
 # media profiles and capabilities spec
-$(call inherit-product, device/htc/shooter/media_a1026.mk)
+$(call inherit-product, device/htc/shooteru/media_a1026.mk)
 
 # misc
 PRODUCT_COPY_FILES += \
