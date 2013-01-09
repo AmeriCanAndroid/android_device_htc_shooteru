@@ -1,144 +1,94 @@
-# system.prop for shooteru
+#
+# system.prop for device
 #
 
-# density in DPI of the LCD of this board. This is used to scale the UI
-# appropriately. If this property is not defined, the default value is 160 dpi.
-ro.sf.lcd_density=180
+debug.fb.rgb565=0
+debug.sf.hw=1
+debug.composition.type=c2d
+#ro.sf.compbypass.enable=1
+#debug.enabletr=true
+dev.pm.dyn_samplingrate=1
 
-debug.fb.rgb565 = 0
+#cm qcom build lub
+com.qc.hardware=true
+com.qc.hdmi_out=true
 
-#C2D
-debug.composition.type = c2d
+# board has 3D panel
+#persist.user.panel3D=1
 
 rild.libpath=/system/lib/libhtc_ril.so
-ro.telephony.default_network=0
+# htc v4 ril
+ro.telephony.ril.v3=signalstrength
+ro.ril.enable.garbage.filter=0
+
 ro.ril.ecc.HTC-GCC=999,112,997
 ro.ril.ecc.HTC-WWE=999
-ro.ril.ecc.HTC-ELL=92,93,94
+ro.ril.ecc.HTC-Dutch=112
+ro.ril.ecc.HTC-FRA=112
+ro.ril.ecc.HTC-ITA=112,911
+ro.ril.ecc.HTC-EastEurope=112
 ro.ril.enable.a52.HTC-ITA=1
 ro.ril.enable.a53.HTC-ITA=1
 ro.ril.enable.a52=0
 ro.ril.enable.a53=1
-ro.ril.disable.fd.plmn.prefix=23402,23410,23411
+
+ro.ril.fast.dormancy.rule=1
+ro.ril.disable.fd.plmn.prefix=23402,23410,23411,23420
 ro.ril.enable.sdr=1
 ro.ril.enable.amr.wideband=0
-
-# ace RF team request
-ro.ril.enable.dtm=0
-ro.ril.gprsclass=12
-ro.ril.hsdpa.category=10
-ro.ril.hsupa.category=6
-ro.ril.hsxpa=2
-
-# enable mobile network for gsm
-ro.ril.enable.garbage.filter=0
 
 # Modify MMS APN retry timer from 5s to 2s.
 ro.gsm.2nd_data_retry_config=max_retries=3, 2000, 2000, 2000
 
-wifi.interface=eth0
-wifi.supplicant_scan_interval=15
+# shooteru RF team request
+ro.ril.enable.dtm=0
+ro.ril.gprsclass=12
+ro.ril.hsdpa.category=10
+ro.ril.hsupa.category=6
+ro.ril.hsxpa=3
 
-mobiledata.interfaces=rmnet0,eth0,gprs,ppp0,wifi
+# Default network type.
+# 0 => WCDMA preferred.
+ro.telephony.default_network=0
 
-# For auto backlight default value
-settings.display.autobacklight=1
-
-# The OpenGL ES API level that is natively supported by this device.
-# This is a 16.16 fixed point number
-ro.opengles.version = 131072
-
-# This is a high density device with more memory, so larger vm heaps for it.
-# Change to 32m, due to 2.3.3 GB already change to 32m
-dalvik.vm.heapsize=64m
-
-# For the default value of agps
-ro.ril.def.agps.mode = 2
+# Modify MTU from 1500 to 1472 on 3G network
+ro.ril.set.mtu1472=1
 
 # For HSDPA low throughput
 ro.ril.disable.power.collapse=1
 
-# board has 3D panel
-persist.user.panel3D = 1
+# For China NEL
+ro.ril.enable.prl.recognition=1
 
-# Make cdma voicemail the default voicemail number.
-ro.cdma.voicemail.number = mine
+wifi.interface=wlan0
+wifi.supplicant_scan_interval=30
+
+# density in DPI of the LCD of this board. This is used to scale the UI
+# appropriately. If this property is not defined, the default value is 160 dpi.
+ro.sf.lcd_density=240
+
+# For auto backlight default value
+settings.display.autobacklight=1
+
+# For the default value of agps
+ro.ril.def.agps.mode=2
+
+# The OpenGL ES API level that is natively supported by this device.
+# This is a 16.16 fixed point number
+ro.opengles.version=131072
+
+mobiledata.interfaces=rmnet0,wlan0,gprs,ppp0
 
 # For emmc phone storage
-ro.phone_storage = 0
+ro.phone_storage=0
 
 # Make rmt_storage start at init
-ro.emmc = 1
+ro.emmc=1
 
-# Render UI with CPU instead of CPU
-debug.sf.hw=1
+# System property for cabl
+ro.qualcomm.cabl=1
 
-# release Bluetooth HW/SW information
-ro.bt.chipset  = Broadcom BCM4329-B1
-ro.bt.stack  = Broadcom BTL-A
-ro.bt.stack.version	= 2.0.50.032
-#0x10000010010100101000011 represent bt profile list
-ro.bt.profiles	= 4270403
-
-# Properties of BTLA stack
-service.brcm.bt.activation = 0
-service.brcm.bt.srv_active = 0
-service.brcm.bt.hcid_active = 0
-service.brcm.bt.btld = 0
-service.brcm.bt.btld_pid = 0
-service.brcm.bt.avrcp_pass_thru = 0
-service.brcm.bt.avrcp_toggle = 1
-service.brcm.bt.local_name = htc_shooteru
-
-# Following property will be reference by Settings.
-ro.product.processor = 1.2 GHz dualcore
-ro.product.ram = 1GB
-ro.product.display_resolution = 4.3 inch QHD resolution
-ro.product.main_camera = 5M * 2
-ro.product.front_camera = 1.3M
-ro.product.bluetooth = 3.0
-ro.product.wifi = 802.11 b/g/n
-
-# Improve overall media quality
-ro.media.enc.jpeg.quality=100
-ro.media.dec.jpeg.memcap=8000000
-ro.media.enc.hprof.vid.bps=8000000
-
-# Increase overall touch responsiveness
-windowsmgr.max_events_per_sec=150
-debug.performance.tuning=1
-video.accelerate.hw=1
-
-#
-# ADDITIONAL_BUILD_PROPERTIES
-#
-ro.com.google.clientidbase=android-sprint-us
 ro.com.google.locationfeatures=1
-ro.cdma.home.operator.numeric=310120
-ro.cdma.home.operator.alpha=Android
-ro.setupwizard.enable_bypass=1
-dalvik.vm.lockprof.threshold=500
-dalvik.vm.dexopt-flags=m=y
-media.a1026.nsForVoiceRec=0
-media.a1026.enableA1026=0
-htc.audio.alt.enable=0
-htc.audio.hac.enable=0
-keyguard.no_require_sim=true
-ro.rommanager.developerid=cyanogenmod
-ro.url.legal=http://www.google.com/intl/%s/mobile/android/basic/phone-legal.html
-ro.url.legal.android_privacy=http://www.google.com/intl/%s/mobile/android/basic/privacy.html
-ro.com.google.clientidbase=android-google
-ro.com.android.wifi-watchlist=GoogleGuest
-ro.setupwizard.enterprise_mode=1
-ro.com.android.dateformat=MM-dd-yyyy
-ro.com.android.dataroaming=false
-ro.config.ringtone=Playa.ogg
-ro.config.notification_sound=Cricket.ogg
-ro.config.alarm_alert=Alarm_Beep_03.ogg
-ro.modversion=AmeriCanAndroid Shooteru CyanogenMod 7.2
-ro.product.multi_touch_enabled=true
-ro.kernel.android.checkjni=1
-ro.setupwizard.mode=OPTIONAL
-dalvik.vm.dexopt-flags=m=y
-net.bt.name=Android
-dalvik.vm.stack-trace-file=/data/anr/traces.txt
+
+# UMS
+persist.sys.usb.config=mass_storage,adb
