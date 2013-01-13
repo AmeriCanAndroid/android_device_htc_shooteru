@@ -32,16 +32,10 @@ PRODUCT_COPY_FILES += \
 
 ## ramdisk stuffs
 PRODUCT_COPY_FILES += \
-    device/htc/shooteru/prebuilt/init:root/init \
-    device/htc/shooteru/init.shooteru.rc:root/init.shooteru.rc \
-    device/htc/shooteru/init.shooteru.usb.rc:root/init.shooteru.usb.rc \
-    device/htc/shooteru/ueventd.shooteru.rc:root/ueventd.shooteru.rc
-
-## We have enough storage space to hold precise GC data
-PRODUCT_TAGS += dalvik.gc.type-precise
-
-## Fix USB transfer speeds
-PRODUCT_PROPERTY_OVERRIDES += ro.vold.umsdirtyratio=20
+    device/htc/shooteru/prebuilt/root/init.shooteru.rc:root/init.shooteru.rc \
+    device/htc/shooteru/prebuilt/root/init.shooteru.usb.rc:root/init.shooteru.usb.rc \
+    device/htc/shooteru/prebuilt/root/ueventd.shooteru.rc:root/ueventd.shooteru.rc \
+    device/htc/shooteru/prebuilt/root/fstab.shooteru:root/fstab.shooteru
 
 # BCM4329 BT Firmware
 PRODUCT_COPY_FILES += \
@@ -50,21 +44,12 @@ PRODUCT_COPY_FILES += \
 ## (2) Also get non-open-source specific aspects if available
 $(call inherit-product-if-exists, vendor/htc/shooteru/shooteru-vendor.mk)
 
-# Kernel Modules
-PRODUCT_COPY_FILES += \
-    device/htc/shooteru/prebuilt/bcm4329.ko:system/lib/modules/bcm4329.ko \
-    device/htc/shooteru/prebuilt/kineto_gan.ko:system/lib/modules/kineto_gan.ko \
-    device/htc/shooteru/prebuilt/msm-buspm-dev.ko:system/lib/modules/msm-buspm-dev.ko
-
 ## misc
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.setupwizard.enable_bypass=1 \
     dalvik.vm.lockprof.threshold=500 \
     ro.com.google.locationfeatures=1 \
     dalvik.vm.dexopt-flags=m=y
-
-## overlays
-DEVICE_PACKAGE_OVERLAYS += device/htc/shooteru/overlay
 
 # Permissions
 PRODUCT_COPY_FILES += \
@@ -73,6 +58,10 @@ PRODUCT_COPY_FILES += \
 # GPS
 PRODUCT_PACKAGES += \
     gps.shooteru
+
+# Temporary adb hack
+ADDITIONAL_DEFAULT_PROPERTIES += \
+    persist.service.adb.enable=1
 
 ## dsp Audio
 PRODUCT_COPY_FILES += \
@@ -119,12 +108,6 @@ PRODUCT_COPY_FILES += \
     device/htc/shooteru/dsp/soundimage/srs_global.cfg:system/etc/soundimage/srs_global.cfg \
     device/htc/shooteru/dsp/soundimage/srsfx_trumedia_voice.cfg:system/etc/soundimage/srsfx_trumedia_voice.cfg
 
-# Custom media config
-PRODUCT_COPY_FILES += \
-     device/htc/shooteru/configs/media_profiles.xml:system/etc/media_profiles.xml \
-     device/htc/shooteru/configs/media_codecs.xml:system/etc/media_codecs.xml \
-     device/htc/shooteru/configs/audio_policy.conf:system/etc/audio_policy.conf
-
 # keylayouts
 PRODUCT_COPY_FILES += \
     device/htc/shooteru/keylayout/h2w_headset.kl:system/usr/keylayout/h2w_headset.kl \
@@ -149,10 +132,34 @@ PRODUCT_COPY_FILES += \
     device/htc/shooteru/firmware/default_rogers_bak.acdb:system/etc/firmware/default_rogers_bak.acdb
 
 # QC thermald config
-PRODUCT_COPY_FILES += device/htc/shooteru/configs/thermald.conf:system/etc/thermald.conf
+PRODUCT_COPY_FILES += device/htc/shooteru/prebuilt/thermald.conf:system/etc/thermald.conf
 
 # we have enough storage space to hold precise GC data
 PRODUCT_TAGS += dalvik.gc.type-precise
+
+PRODUCT_LOCALES += en
+
+# sdcard mounting
+PRODUCT_COPY_FILES += \
+    device/htc/shooteru/prebuilt/system/etc/vold.fstab:system/etc/vold.fstab
+
+# Kernel Modules
+ifneq ($(BUILD_KERNEL),true)
+    PRODUCT_COPY_FILES += $(shell \
+        find device/htc/shooteru/prebuilt/system/lib/modules -name '*.ko' \
+        | sed -r 's/^\/?(.*\/)([^/ ]+)$$/\1\2:system\/lib\/modules\/\2/' \
+        | tr '\n' ' ')
+endif
+
+## Fix USB transfer speeds
+PRODUCT_PROPERTY_OVERRIDES += ro.vold.umsdirtyratio=20
+
+## overlays
+DEVICE_PACKAGE_OVERLAYS += device/htc/shooteru/overlay
+
+## Custom media config
+#PRODUCT_COPY_FILES += \
+#     device/htc/shooteru/configs/audio_policy.conf:system/etc/audio_policy.conf
 
 # Broadcom Network Firmware
 PRODUCT_COPY_FILES += \
@@ -175,10 +182,6 @@ PRODUCT_PACKAGES += \
 
 # media profiles and capabilities spec
 $(call inherit-product, device/htc/shooteru/media_a1026.mk)
-
-# misc
-PRODUCT_COPY_FILES += \
-    device/htc/shooteru/vold.fstab:system/etc/vold.fstab
 
 ## htc audio settings
 $(call inherit-product, device/htc/shooteru/media_htcaudio.mk)
