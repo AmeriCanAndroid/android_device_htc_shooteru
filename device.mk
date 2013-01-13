@@ -110,21 +110,20 @@ PRODUCT_COPY_FILES += \
 
 # keylayouts
 PRODUCT_COPY_FILES += \
-    device/htc/shooteru/keylayout/h2w_headset.kl:system/usr/keylayout/h2w_headset.kl \
-    device/htc/shooteru/keylayout/AVRCP.kl:system/usr/keylayout/AVRCP.kl \
-    device/htc/shooteru/keylayout/qwerty.kl:system/usr/keylayout/qwerty.kl \
-    device/htc/shooteru/keylayout/atmel-touchscreen.kl:system/usr/keylayout/atmel-touchscreen.kl \
-    device/htc/shooteru/keylayout/shooteru-keypad.kl:system/usr/keylayout/shooteru-keypad.kl
+    device/htc/shooteru/prebuilt/system/usr/keylayout/h2w_headset.kl:system/usr/keylayout/h2w_headset.kl \
+    device/htc/shooteru/prebuilt/system/usr/keylayout/AVRCP.kl:system/usr/keylayout/AVRCP.kl \
+    device/htc/shooteru/prebuilt/system/usr/keylayout/atmel-touchscreen.kl:system/usr/keylayout/atmel-touchscreen.kl \
+    device/htc/shooteru/prebuilt/system/usr/keylayout/shooteru-keypad.kl:system/usr/keylayout/shooteru-keypad.kl
 
 # Keychars
 PRODUCT_COPY_FILES += \
-    device/htc/shooteru/keychars/shooteru-keypad.kcm:system/usr/keychars/shooteru-keypad.kcm \
-    device/htc/shooteru/keychars/atmel-touchscreen.kcm:system/usr/keychars/atmel-touchscreen.kcm
+    device/htc/shooteru/prebuilt/system/usr/keychars/shooteru-keypad.kcm:system/usr/keychars/shooteru-keypad.kcm \
+    device/htc/shooteru/prebuilt/system/usr/keychars/atmel-touchscreen.kcm:system/usr/keychars/atmel-touchscreen.kcm
 
 # idc
 PRODUCT_COPY_FILES += \
-    device/htc/shooteru/idc/atmel-touchscreen.idc:system/usr/idc/atmel-touchscreen.idc \
-    device/htc/shooteru/idc/shooteru-keypad.idc:system/usr/idc/shooteru-keypad.idc
+    device/htc/shooteru/prebuilt/system/usr/idc/atmel-touchscreen.idc:system/usr/idc/atmel-touchscreen.idc \
+    device/htc/shooteru/prebuilt/system/usr/idc/shooteru-keypad.idc:system/usr/idc/shooteru-keypad.idc
 
 # Device Specific Firmware
 PRODUCT_COPY_FILES += \
