@@ -70,7 +70,7 @@ DEVICE_PACKAGE_OVERLAYS += device/htc/shooteru/overlay
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml
 
-# GPS and Light
+# GPS
 PRODUCT_PACKAGES += \
     gps.shooteru
 
