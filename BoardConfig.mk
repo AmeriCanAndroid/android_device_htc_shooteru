@@ -77,6 +77,9 @@ BOARD_USES_MMCUTILS := true
 BOARD_HAS_NO_MISC_PARTITION := true
 BOARD_HAS_NO_SELECT_BUTTON := true
 
+# Fix building until we can figure v8 out
+DYNAMIC_SHARED_LIBV8SO := false
+
 # Graphics / Video
 COMMON_GLOBAL_CFLAGS += -DQCOM_ROTATOR_KERNEL_FORMATS
 
