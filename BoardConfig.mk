@@ -23,8 +23,7 @@
 # WARNING: This line must come *before* including the proprietary
 # variant, so that it gets overwritten by the parent (which goes
 # against the traditional rules of inheritance).
-
-USE_CAMERA_STUB := true
+#USE_CAMERA_STUB := true
 
 # inherit from common msm8660
 -include device/htc/msm8660-common/BoardConfigCommon.mk
@@ -39,47 +38,10 @@ BOARD_KERNEL_BASE := 0x48000000
 BOARD_KERNEL_PAGE_SIZE := 2048 
 
 BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := shooteru
+TARGET_ARCH_VARIANT_CPU := cortex-a9
 
 # 3D Support
 TARGET_HARDWARE_3D := true
-
-## Kernel Details
-TARGET_KERNEL_CONFIG := shooter_u_defconfig
-TARGET_PREBUILT_KERNEL := device/htc/shooteru/prebuilt/zImage
-
-# Camera
-TARGET_DISABLE_ARM_PIE := true
-BOARD_CAMERA_USE_MM_HEAP := true
-BOARD_HTC_3D_SUPPORT := true
-
-# -DQCOM_TUNNEL_LPA_ENABLED 
-TARGET_USES_QCOM_LPA := true
-COMMON_GLOBAL_CFLAGS += -DQCOM_ICS_LPA_COMPAT
-COMMON_GLOBAL_CFLAGS += -DQCOM_ACDB_ENABLED -DQCOM_VOIP_ENABLED
-
-# Wifi
-WIFI_BAND                        := 802_11_ABG
-WPA_SUPPLICANT_VERSION           := VER_0_8_X
-BOARD_WPA_SUPPLICANT_DRIVER      := WEXT
-BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_wext
-BOARD_HOSTAPD_DRIVER             := WEXT
-BOARD_HOSTAPD_PRIVATE_LIB        := lib_driver_cmd_wext
-BOARD_WLAN_DEVICE                := bcm4329
-WIFI_DRIVER_FW_PATH_STA          := "/vendor/firmware/fw_bcm4329.bin"
-WIFI_DRIVER_FW_PATH_AP           := "/vendor/firmware/fw_bcm4329_apsta.bin"
-WIFI_DRIVER_FW_PATH_PARAM        := "/sys/module/bcm4329/parameters/firmware_path"
-WIFI_DRIVER_MODULE_PATH          := "/system/lib/modules/bcm4329.ko"
-WIFI_DRIVER_MODULE_NAME          := "bcm4329"
-WIFI_DRIVER_MODULE_ARG           := "firmware_path=/vendor/firmware/fw_bcm4329.bin nvram_path=/proc/calibration iface_name=wlan"
-BOARD_WLAN_DEVICE_REV            := bcm4329
-
-# Bootanimation
-TARGET_BOOTANIMATION_TEXTURE_CACHE := false
-TARGET_SCREEN_HEIGHT := 960
-TARGET_SCREEN_WIDTH := 540
-
-# Custom LUN File Path
-TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/class/android_usb/android0/f_mass_storage/lun0/file
 
 # cat /proc/emmc
 #dev:        size     erasesize name
@@ -102,3 +64,42 @@ BOARD_SYSTEMIMAGE_PARTITION_SIZE := 838859776
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 1252770816
 BOARD_BOOTIMAGE_PARTITION_SIZE := 16777216
 BOARD_FLASH_BLOCK_SIZE := 262144
+
+# Try to build the kernel
+TARGET_KERNEL_CONFIG := shooter_u_defconfig
+# Keep this as a fallback
+TARGET_PREBUILT_KERNEL := device/htc/shooteru/prebuilt/zImage
+
+TARGET_RECOVERY_PIXEL_FORMAT := "BGRA_8888"
+#TARGET_RECOVERY_UI_LIB := librecovery_ui_shooteru
+#BOARD_CUSTOM_GRAPHICS := ../../../device/htc/shooteru/recovery/graphics.c
+TARGET_RECOVERY_INITRC := device/htc/shooteru/recovery/init.rc
+BOARD_SDCARD_DEVICE_PRIMARY := /dev/block/mmcblk1p1
+BOARD_SDCARD_DEVICE_SECONDARY := /dev/block/mmcblk1
+BOARD_SDEXT_DEVICE := /dev/block/mmcblk1p2
+BOARD_USES_MMCUTILS := true
+BOARD_HAS_NO_MISC_PARTITION := true
+BOARD_HAS_NO_SELECT_BUTTON := true
+
+# Wifi
+WIFI_BAND                        := 802_11_ABG
+WPA_SUPPLICANT_VERSION           := VER_0_8_X
+BOARD_WPA_SUPPLICANT_DRIVER      := WEXT
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_wext
+BOARD_HOSTAPD_DRIVER             := WEXT
+BOARD_HOSTAPD_PRIVATE_LIB        := lib_driver_cmd_wext
+BOARD_WLAN_DEVICE                := bcm4329
+WIFI_DRIVER_FW_PATH_STA          := "/vendor/firmware/fw_bcm4329.bin"
+WIFI_DRIVER_FW_PATH_AP           := "/vendor/firmware/fw_bcm4329_apsta.bin"
+WIFI_DRIVER_FW_PATH_PARAM        := "/sys/module/bcm4329/parameters/firmware_path"
+WIFI_DRIVER_MODULE_PATH          := "/system/lib/modules/bcm4329.ko"
+WIFI_DRIVER_MODULE_NAME          := "bcm4329"
+WIFI_DRIVER_MODULE_ARG           := "firmware_path=/vendor/firmware/fw_bcm4329.bin nvram_path=/proc/calibration iface_name=wlan"
+BOARD_WLAN_DEVICE_REV            := bcm4329
+
+# Custom LUN File Path
+TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/class/android_usb/android0/f_mass_storage/lun0/file
+
+TARGET_GLOBAL_CFLAGS += $(call cc-option,-mtune=cortex-a9,$(call cc-option,-mtune=cortex-a8)) $(call cc-option,-mcpu=cortex-a9,$(call cc-option,-mcpu=cortex-a8))
+TARGET_GLOBAL_CPPFLAGS += $(call cc-option,-mtune=cortex-a9,$(call cc-option,-mtune=cortex-a8)) $(call cc-option,-mcpu=cortex-a9,$(call cc-option,-mcpu=cortex-a8))
+
