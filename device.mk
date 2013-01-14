@@ -19,16 +19,19 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 # common msm8660 configs - ignoring property overrides
 $(call inherit-product, device/htc/msm8660-common/msm8660.mk)
 
+## New Adreno Drivers
+PRODUCT_COPY_FILES += \
+    device/htc/shooteru/firmware/a225_pfp.fw:system/etc/firmware/a225_pfp.fw \
+    device/htc/shooteru/firmware/a225_pm4.fw:system/etc/firmware/a225_pm4.fw \
+    device/htc/shooteru/firmware/a225p5_pm4.fw:system/etc/firmware/a225p5_pm4.fw \
+    device/htc/shooteru/firmware/yamato_pfp.fw:system/etc/firmware/yamato_pfp.fw \
+    device/htc/shooteru/firmware/yamato_pm4.fw:system/etc/firmware/yamato_pm4.fw \
+    device/htc/shooteru/firmware/leia_pfp_470.fw:system/etc/firmware/leia_pfp_470.fw \
+    device/htc/shooteru/firmware/leia_pm4_470.fw:system/etc/firmware/leia_pm4_470.fw \
+    device/htc/shooteru/firmware/vidc_1080p.fw:system/etc/firmware/vidc_1080p.fw
+
 ## The gps config appropriate for this device
 PRODUCT_COPY_FILES += device/common/gps/gps.conf_US:system/etc/gps.conf
-
-## recovery and custom charging
-PRODUCT_COPY_FILES += \
-    device/htc/shooteru/recovery/sbin/choice_fn:recovery/root/sbin/choice_fn \
-    device/htc/shooteru/recovery/sbin/power_test:recovery/root/sbin/power_test \
-    device/htc/shooteru/recovery/sbin/offmode_charging:recovery/root/sbin/offmode_charging \
-    device/htc/shooteru/recovery/sbin/detect_key:recovery/root/sbin/detect_key \
-    device/htc/shooteru/recovery/sbin/htcbatt:recovery/root/sbin/htcbatt
 
 ## ramdisk stuffs
 PRODUCT_COPY_FILES += \
@@ -37,31 +40,9 @@ PRODUCT_COPY_FILES += \
     device/htc/shooteru/prebuilt/root/ueventd.shooteru.rc:root/ueventd.shooteru.rc \
     device/htc/shooteru/prebuilt/root/fstab.shooteru:root/fstab.shooteru
 
-# BCM4329 BT Firmware
-PRODUCT_COPY_FILES += \
-    device/htc/msm8660-common/firmware/bcm4329.hcd:system/vendor/firmware/bcm4329.hcd
-
-## (2) Also get non-open-source specific aspects if available
-$(call inherit-product-if-exists, vendor/htc/shooteru/shooteru-vendor.mk)
-
-## misc
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.setupwizard.enable_bypass=1 \
-    dalvik.vm.lockprof.threshold=500 \
-    ro.com.google.locationfeatures=1 \
-    dalvik.vm.dexopt-flags=m=y
-
 # Permissions
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml
-
-# GPS
-PRODUCT_PACKAGES += \
-    gps.shooteru
-
-# Temporary adb hack
-ADDITIONAL_DEFAULT_PROPERTIES += \
-    persist.service.adb.enable=1
 
 ## dsp Audio
 PRODUCT_COPY_FILES += \
@@ -133,14 +114,46 @@ PRODUCT_COPY_FILES += \
 # QC thermald config
 PRODUCT_COPY_FILES += device/htc/shooteru/prebuilt/thermald.conf:system/etc/thermald.conf
 
-# we have enough storage space to hold precise GC data
-PRODUCT_TAGS += dalvik.gc.type-precise
-
-PRODUCT_LOCALES += en
-
 # sdcard mounting
 PRODUCT_COPY_FILES += \
     device/htc/shooteru/prebuilt/system/etc/vold.fstab:system/etc/vold.fstab
+
+# we have enough storage space to hold precise GC data
+PRODUCT_TAGS += dalvik.gc.type-precise
+
+## overlays
+DEVICE_PACKAGE_OVERLAYS += device/htc/shooteru/overlay
+
+# misc
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.setupwizard.enable_bypass=1 \
+    dalvik.vm.lockprof.threshold=500 \
+    ro.com.google.locationfeatures=1 \
+    dalvik.vm.dexopt-flags=m=y \
+    ro.vold.umsdirtyratio=20 \
+    htc.audio.alt.enable=1 \
+    htc.audio.hac.enable=0
+
+## recovery and custom charging
+PRODUCT_COPY_FILES += \
+    device/htc/shooteru/recovery/sbin/choice_fn:recovery/root/sbin/choice_fn \
+    device/htc/shooteru/recovery/sbin/power_test:recovery/root/sbin/power_test \
+    device/htc/shooteru/recovery/sbin/offmode_charging:recovery/root/sbin/offmode_charging \
+    device/htc/shooteru/recovery/sbin/detect_key:recovery/root/sbin/detect_key \
+    device/htc/shooteru/recovery/sbin/htcbatt:recovery/root/sbin/htcbatt
+
+# Broadcom Network Firmware
+PRODUCT_COPY_FILES += \
+    device/htc/shooteru/firmware/fw_bcm4329.bin:system/vendor/firmware/fw_bcm4329.bin \
+    device/htc/shooteru/firmware/fw_bcm4329_apsta.bin:system/vendor/firmware/fw_bcm4329_apsta.bin
+
+# BCM4329 BT Firmware
+PRODUCT_COPY_FILES += \
+    device/htc/msm8660-common/firmware/bcm4329.hcd:system/vendor/firmware/bcm4329.hcd
+
+# GPS
+PRODUCT_PACKAGES += \
+    gps.shooteru
 
 # Kernel Modules
 ifneq ($(BUILD_KERNEL),true)
@@ -150,37 +163,16 @@ ifneq ($(BUILD_KERNEL),true)
         | tr '\n' ' ')
 endif
 
-## Fix USB transfer speeds
-PRODUCT_PROPERTY_OVERRIDES += ro.vold.umsdirtyratio=20
-
-## overlays
-DEVICE_PACKAGE_OVERLAYS += device/htc/shooteru/overlay
-
-## Custom media config
-#PRODUCT_COPY_FILES += \
-#     device/htc/shooteru/configs/audio_policy.conf:system/etc/audio_policy.conf
-
-# Broadcom Network Firmware
-PRODUCT_COPY_FILES += \
-    device/htc/shooteru/firmware/fw_bcm4329.bin:system/vendor/firmware/fw_bcm4329.bin \
-    device/htc/shooteru/firmware/fw_bcm4329_apsta.bin:system/vendor/firmware/fw_bcm4329_apsta.bin
-
-## New Adreno Drivers
-PRODUCT_COPY_FILES += \
-    device/htc/shooteru/firmware/yamato_pm4.fw:system/etc/firmware/yamato_pm4.fw \
-    device/htc/shooteru/firmware/yamato_pm4.fw:system/etc/firmware/yamato_pm4.fw \
-    device/htc/shooteru/firmware/vidc_1080p.fw:system/etc/firmware/vidc_1080p.fw
-   
 # Filesystem management tools
 PRODUCT_PACKAGES += \
     make_ext4fs \
     e2fsck \
     setup_fs
 
-# media profiles and capabilities spec
+# Inherit makefiles
+
+$(call inherit-product-if-exists, vendor/htc/shooteru/shooteru-vendor.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 $(call inherit-product, device/htc/shooteru/media_a1026.mk)
-
-## htc audio settings
 $(call inherit-product, device/htc/shooteru/media_htcaudio.mk)
-
 $(call inherit-product, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
