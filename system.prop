@@ -2,6 +2,7 @@
 # system.prop for device
 #
 #
+debug.enabletr=false
 dev.pm.dyn_samplingrate=1
 lpa.use-stagefright=true
 lpa.decode=true

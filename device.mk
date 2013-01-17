@@ -14,8 +14,6 @@
 # limitations under the License.
 #
 
-$(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
-
 # common msm8660 configs - ignoring property overrides
 $(call inherit-product, device/htc/msm8660-common/msm8660.mk)
 
@@ -114,7 +112,7 @@ PRODUCT_COPY_FILES += \
 # QC thermald config
 PRODUCT_COPY_FILES += device/htc/shooteru/prebuilt/thermald.conf:system/etc/thermald.conf
 
-# sdcard mounting
+# Vold
 PRODUCT_COPY_FILES += \
     device/htc/shooteru/prebuilt/system/etc/vold.fstab:system/etc/vold.fstab
 
@@ -142,19 +140,6 @@ PRODUCT_COPY_FILES += \
     device/htc/shooteru/recovery/sbin/detect_key:recovery/root/sbin/detect_key \
     device/htc/shooteru/recovery/sbin/htcbatt:recovery/root/sbin/htcbatt
 
-# Broadcom Network Firmware
-PRODUCT_COPY_FILES += \
-    device/htc/shooteru/firmware/fw_bcm4329.bin:system/vendor/firmware/fw_bcm4329.bin \
-    device/htc/shooteru/firmware/fw_bcm4329_apsta.bin:system/vendor/firmware/fw_bcm4329_apsta.bin
-
-# BCM4329 BT Firmware
-PRODUCT_COPY_FILES += \
-    device/htc/msm8660-common/firmware/bcm4329.hcd:system/vendor/firmware/bcm4329.hcd
-
-# GPS
-PRODUCT_PACKAGES += \
-    gps.shooteru
-
 # Kernel Modules
 ifneq ($(BUILD_KERNEL),true)
     PRODUCT_COPY_FILES += $(shell \
@@ -173,6 +158,5 @@ PRODUCT_PACKAGES += \
 
 $(call inherit-product-if-exists, vendor/htc/shooteru/shooteru-vendor.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
-$(call inherit-product, device/htc/shooteru/media_a1026.mk)
-$(call inherit-product, device/htc/shooteru/media_htcaudio.mk)
+$(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4329/device-bcm.mk)
 $(call inherit-product, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
