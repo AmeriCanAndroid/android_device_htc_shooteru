@@ -15,12 +15,19 @@
 #
 
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
-# common msm8660 configs - ignoring property overrides
+# common msm8660 configs
 $(call inherit-product, device/htc/msm8660-common/msm8660.mk)
 
-## The gps config appropriate for this device
-PRODUCT_COPY_FILES += device/common/gps/gps.conf_US:system/etc/gps.conf
+DEVICE_PACKAGE_OVERLAYS += device/htc/shooteru/overlay
+
+## ramdisk stuffs
+PRODUCT_COPY_FILES += \
+    device/htc/shooteru/prebuilt/root/init:root/init \
+    device/htc/shooteru/prebuilt/root/init.shooteru.rc:root/init.shooteru.rc \
+    device/htc/shooteru/prebuilt/root/init.shooteru.usb.rc:root/init.shooteru.usb.rc \
+    device/htc/shooteru/prebuilt/root/ueventd.shooteru.rc:root/ueventd.shooteru.rc 
 
 ## recovery and custom charging
 PRODUCT_COPY_FILES += \
@@ -29,45 +36,6 @@ PRODUCT_COPY_FILES += \
     device/htc/shooteru/recovery/sbin/offmode_charging:recovery/root/sbin/offmode_charging \
     device/htc/shooteru/recovery/sbin/detect_key:recovery/root/sbin/detect_key \
     device/htc/shooteru/recovery/sbin/htcbatt:recovery/root/sbin/htcbatt
-
-## ramdisk stuffs
-PRODUCT_COPY_FILES += \
-    device/htc/shooteru/prebuilt/root/init:root/init \
-    device/htc/shooteru/prebuilt/root/init.shooteru.rc:root/init.shooteru.rc \
-    device/htc/shooteru/prebuilt/root/init.shooteru.usb.rc:root/init.shooteru.usb.rc \
-    device/htc/shooteru/prebuilt/root/ueventd.shooteru.rc:root/ueventd.shooteru.rc
-    
-## We have enough storage space to hold precise GC data
-PRODUCT_TAGS += dalvik.gc.type-precise
-
-## Fix USB transfer speeds
-PRODUCT_PROPERTY_OVERRIDES += ro.vold.umsdirtyratio=20
-
-# BCM4329 BT Firmware
-PRODUCT_COPY_FILES += \
-    device/htc/msm8660-common/firmware/bcm4329.hcd:system/vendor/firmware/bcm4329.hcd
-
-## (2) Also get non-open-source specific aspects if available
-$(call inherit-product-if-exists, vendor/htc/shooteru/shooteru-vendor.mk)
-
-## misc
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.setupwizard.enable_bypass=1 \
-    dalvik.vm.lockprof.threshold=500 \
-    ro.com.google.locationfeatures=1 \
-    dalvik.vm.dexopt-flags=m=y
-
-## overlays
-DEVICE_PACKAGE_OVERLAYS += device/htc/shooteru/overlay
-
-# Permissions
-PRODUCT_COPY_FILES += \
-    frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml
-
-# GPS and Light
-PRODUCT_PACKAGES += \
-    gps.shooteru \
-    lights.msm8660
 
 ## dsp Audio
 PRODUCT_COPY_FILES += \
@@ -114,15 +82,20 @@ PRODUCT_COPY_FILES += \
     device/htc/shooteru/dsp/soundimage/srs_global.cfg:system/etc/soundimage/srs_global.cfg \
     device/htc/shooteru/dsp/soundimage/srsfx_trumedia_voice.cfg:system/etc/soundimage/srsfx_trumedia_voice.cfg
 
-# Custom media config
+# misc
 PRODUCT_COPY_FILES += \
-     device/htc/shooteru/prebuilt/system/etc/media_profiles.xml:system/etc/media_profiles.xml \
-     device/htc/msm8660-common/configs/media_codecs.xml:system/etc/media_codecs.xml
+    device/htc/shooteru/prebuilt/system/etc/vold.fstab:system/etc/vold.fstab
+
+# Bluetooth firmware
+$(call inherit-product, device/htc/msm8660-common/bcm_hcd.mk)
+
+$(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4329/device-bcm.mk)
 
 # keylayouts
 PRODUCT_COPY_FILES += \
     device/htc/shooteru/prebuilt/system/usr/keylayout/h2w_headset.kl:system/usr/keylayout/h2w_headset.kl \
     device/htc/shooteru/prebuilt/system/usr/keylayout/AVRCP.kl:system/usr/keylayout/AVRCP.kl \
+    device/htc/shooteru/prebuilt/system/usr/keylayout/qwerty.kl:system/usr/keylayout/qwerty.kl \
     device/htc/shooteru/prebuilt/system/usr/keylayout/atmel-touchscreen.kl:system/usr/keylayout/atmel-touchscreen.kl \
     device/htc/shooteru/prebuilt/system/usr/keylayout/shooteru-keypad.kl:system/usr/keylayout/shooteru-keypad.kl
 
@@ -141,25 +114,27 @@ PRODUCT_COPY_FILES += \
     device/htc/shooteru/firmware/default_bak.acdb:system/etc/firmware/default_bak.acdb \
     device/htc/shooteru/firmware/default_rogers_bak.acdb:system/etc/firmware/default_rogers_bak.acdb
 
-# QC thermald config
-PRODUCT_COPY_FILES += device/htc/shooteru/prebuilt/system/etc/thermald.conf:system/etc/thermald.conf
-
-# we have enough storage space to hold precise GC data
-PRODUCT_TAGS += dalvik.gc.type-precise
-
-# Broadcom Network Firmware
-$(call inherit-product-if-exists, hardware/broadcom/wlan/bcmdhd/firmware/bcm4329/device-bcm.mk)
-
 # Adreno Drivers
 PRODUCT_COPY_FILES += \
     device/htc/shooteru/firmware/a225_pfp.fw:system/etc/firmware/a225_pfp.fw \
     device/htc/shooteru/firmware/a225_pm4.fw:system/etc/firmware/a225_pm4.fw \
     device/htc/shooteru/firmware/a225p5_pm4.fw:system/etc/firmware/a225p5_pm4.fw \
     device/htc/shooteru/firmware/yamato_pfp.fw:system/etc/firmware/yamato_pfp.fw \
-    device/htc/shooteru/firmware/yamato_pm4.fw:system/etc/firmware/yamato_pm4.fw \
-    device/htc/shooteru/firmware/leia_pfp_470.fw:system/etc/firmware/leia_pfp_470.fw \
-    device/htc/shooteru/firmware/leia_pm4_470.fw:system/etc/firmware/leia_pm4_470.fw \
-    device/htc/shooteru/firmware/vidc_1080p.fw:system/etc/firmware/vidc_1080p.fw
+    device/htc/shooteru/firmware/yamato_pm4.fw:system/etc/firmware/yamato_pm4.fw
+
+# GPS
+PRODUCT_PACKAGES += \
+    gps.shooteru
+
+# Torch
+PRODUCT_PACKAGES += \
+    Torch
+
+# Filesystem management tools
+PRODUCT_PACKAGES += \
+    make_ext4fs \
+    e2fsck \
+    setup_fs
 
 # Kernel Modules
 ifneq ($(BUILD_KERNEL),true)
@@ -169,20 +144,40 @@ ifneq ($(BUILD_KERNEL),true)
         | tr '\n' ' ')
 endif
 
-# Filesystem management tools
-PRODUCT_PACKAGES += \
-    make_ext4fs \
-    e2fsck \
-    setup_fs
+# Permissions
+PRODUCT_COPY_FILES += \
+    frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml
+
+## We have enough storage space to hold precise GC data
+PRODUCT_TAGS += dalvik.gc.type-precise
+
+# Set build date
+PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
+
+## Fix USB transfer speeds
+PRODUCT_PROPERTY_OVERRIDES += ro.vold.umsdirtyratio=20
+
+## misc
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.setupwizard.enable_bypass=1 \
+    dalvik.vm.lockprof.threshold=500 \
+    ro.com.google.locationfeatures=1 \
+    dalvik.vm.dexopt-flags=m=y
+
+## (2) Also get non-open-source specific aspects if available
+$(call inherit-product-if-exists, vendor/htc/shooteru/shooteru-vendor.mk)
 
 # media profiles and capabilities spec
 $(call inherit-product, device/htc/shooteru/media_a1026.mk)
-
-# misc
-PRODUCT_COPY_FILES += \
-    device/htc/shooteru/prebuilt/system/etc/vold.fstab:system/etc/vold.fstab
 
 ## htc audio settings
 $(call inherit-product, device/htc/shooteru/media_htcaudio.mk)
 
 $(call inherit-product, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)
+
+# Discard inherited values and use our own instead.
+PRODUCT_NAME := full_shooteru
+PRODUCT_DEVICE := shooteru
+PRODUCT_BRAND := HTC
+PRODUCT_MANUFACTURER := HTC
+PRODUCT_MODEL := Evo 3D GSM
