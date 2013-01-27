@@ -41,6 +41,7 @@ BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := shooteru
 BOARD_USE_NEW_LIBRIL_HTC := true
 
 # 3D Support
+BOARD_HTC_3D_SUPPORT := true
 TARGET_HARDWARE_3D := true
 
 # Kernel Details
@@ -61,9 +62,8 @@ TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/class/android_usb/android0/f_mass_storag
 BOARD_KERNEL_CMDLINE := console=ttyHSL0 androidboot.hardware=shooteru no_console_suspend=1
 BOARD_KERNEL_BASE := 0x48000000
 BOARD_KERNEL_PAGE_SIZE := 2048
-#BUILD_KERNEL := true
-#TARGET_KERNEL_SOURCE := kernel/htc/msm8660
-#TARGET_KERNEL_CONFIG := shooter_u_defconfig
+TARGET_KERNEL_SOURCE := kernel/htc/shooteru
+TARGET_KERNEL_CONFIG := shooter_u_defconfig
 
 # Not Building a kernel at this time
 TARGET_PREBUILT_KERNEL := device/htc/shooteru/prebuilt/zImage

@@ -27,7 +27,7 @@ PRODUCT_COPY_FILES += \
     device/htc/shooteru/prebuilt/root/init:root/init \
     device/htc/shooteru/prebuilt/root/init.shooteru.rc:root/init.shooteru.rc \
     device/htc/shooteru/prebuilt/root/init.shooteru.usb.rc:root/init.shooteru.usb.rc \
-    device/htc/shooteru/prebuilt/root/ueventd.shooteru.rc:root/ueventd.shooteru.rc 
+    device/htc/shooteru/prebuilt/root/ueventd.shooteru.rc:root/ueventd.shooteru.rc
 
 ## recovery and custom charging
 PRODUCT_COPY_FILES += \
