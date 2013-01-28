@@ -32,8 +32,6 @@ USE_CAMERA_STUB := true
 # inherit from the proprietary version
 -include vendor/htc/shooteru/BoardConfigVendor.mk
 
-TARGET_SPECIFIC_HEADER_PATH := device/htc/shooteru/include
-
 TARGET_BOOTLOADER_BOARD_NAME := shooteru
 
 BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := shooteru
@@ -43,9 +41,6 @@ BOARD_USE_NEW_LIBRIL_HTC := true
 # 3D Support
 BOARD_HTC_3D_SUPPORT := true
 TARGET_HARDWARE_3D := true
-
-# Kernel Details
-TARGET_KERNEL_CONFIG := shooter_u_defconfig
 
 # Camera
 TARGET_DISABLE_ARM_PIE := true
@@ -66,7 +61,7 @@ TARGET_KERNEL_SOURCE := kernel/htc/shooteru
 TARGET_KERNEL_CONFIG := shooter_u_defconfig
 
 # Not Building a kernel at this time
-TARGET_PREBUILT_KERNEL := device/htc/shooteru/prebuilt/zImage
+# TARGET_PREBUILT_KERNEL := device/htc/shooteru/prebuilt/zImage
 
 # cat /proc/emmc
 #dev:        size     erasesize name
