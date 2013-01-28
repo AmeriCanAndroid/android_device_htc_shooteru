@@ -24,10 +24,10 @@ DEVICE_PACKAGE_OVERLAYS += device/htc/shooteru/overlay
 
 ## ramdisk stuffs
 PRODUCT_COPY_FILES += \
-    device/htc/shooteru/prebuilt/root/init:root/init \
     device/htc/shooteru/prebuilt/root/init.shooteru.rc:root/init.shooteru.rc \
     device/htc/shooteru/prebuilt/root/init.shooteru.usb.rc:root/init.shooteru.usb.rc \
-    device/htc/shooteru/prebuilt/root/ueventd.shooteru.rc:root/ueventd.shooteru.rc
+    device/htc/shooteru/prebuilt/root/ueventd.shooteru.rc:root/ueventd.shooteru.rc \
+    device/htc/shooteru/prebuilt/root/fstab.shooteru:root/fstab.shooteru
 
 ## recovery and custom charging
 PRODUCT_COPY_FILES += \
@@ -135,14 +135,6 @@ PRODUCT_PACKAGES += \
     make_ext4fs \
     e2fsck \
     setup_fs
-
-## Kernel Modules
-#ifneq ($(BUILD_KERNEL),true)
-#    PRODUCT_COPY_FILES += $(shell \
-#        find device/htc/shooteru/prebuilt/system/lib/modules -name '*.ko' \
-#        | sed -r 's/^\/?(.*\/)([^/ ]+)$$/\1\2:system\/lib\/modules\/\2/' \
-#        | tr '\n' ' ')
-#endif
 
 # Permissions
 PRODUCT_COPY_FILES += \
