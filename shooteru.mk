@@ -136,13 +136,13 @@ PRODUCT_PACKAGES += \
     e2fsck \
     setup_fs
 
-# Kernel Modules
-ifneq ($(BUILD_KERNEL),true)
-    PRODUCT_COPY_FILES += $(shell \
-        find device/htc/shooteru/prebuilt/system/lib/modules -name '*.ko' \
-        | sed -r 's/^\/?(.*\/)([^/ ]+)$$/\1\2:system\/lib\/modules\/\2/' \
-        | tr '\n' ' ')
-endif
+## Kernel Modules
+#ifneq ($(BUILD_KERNEL),true)
+#    PRODUCT_COPY_FILES += $(shell \
+#        find device/htc/shooteru/prebuilt/system/lib/modules -name '*.ko' \
+#        | sed -r 's/^\/?(.*\/)([^/ ]+)$$/\1\2:system\/lib\/modules\/\2/' \
+#        | tr '\n' ' ')
+#endif
 
 # Permissions
 PRODUCT_COPY_FILES += \
