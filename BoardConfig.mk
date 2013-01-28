@@ -34,42 +34,34 @@ USE_CAMERA_STUB := true
 
 TARGET_BOOTLOADER_BOARD_NAME := shooteru
 
-# Bluetooth
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/htc/shooteru/bluetooth
-
-BOARD_KERNEL_CMDLINE := console=ttyHSL0 androidboot.hardware=shooteru no_console_suspend=1
-BOARD_KERNEL_BASE := 0x48000000
-BOARD_KERNEL_PAGE_SIZE := 2048 
-
 BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := shooteru
 
-TARGET_ARCH := arm
+BOARD_USE_NEW_LIBRIL_HTC := true
 
 # 3D Support
+BOARD_HTC_3D_SUPPORT := true
 TARGET_HARDWARE_3D := true
-
-## Kernel Details
-TARGET_KERNEL_CONFIG := shooter_u_defconfig
-TARGET_KERNEL_SOURCE := kernel/htc/shooteru
-TARGET_PREBUILT_KERNEL := device/htc/shooteru/prebuilt/zImage
 
 # Camera
 TARGET_DISABLE_ARM_PIE := true
 BOARD_CAMERA_USE_MM_HEAP := true
 BOARD_HTC_3D_SUPPORT := true
 
-# -DQCOM_TUNNEL_LPA_ENABLED 
-TARGET_USES_QCOM_LPA := true
-COMMON_GLOBAL_CFLAGS += -DQCOM_ICS_LPA_COMPAT
-COMMON_GLOBAL_CFLAGS += -DQCOM_ACDB_ENABLED -DQCOM_VOIP_ENABLED
-
-# Bootanimation
-TARGET_BOOTANIMATION_TEXTURE_CACHE := false
-TARGET_SCREEN_HEIGHT := 960
-TARGET_SCREEN_WIDTH := 540
+# Bluetooth/Wifi
+-include device/htc/msm8660-common/bcmdhd.mk
 
 # Custom LUN File Path
 TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/class/android_usb/android0/f_mass_storage/lun0/file
+
+# Kernel
+BOARD_KERNEL_CMDLINE := console=ttyHSL0 androidboot.hardware=shooteru no_console_suspend=1
+BOARD_KERNEL_BASE := 0x48000000
+BOARD_KERNEL_PAGE_SIZE := 2048
+TARGET_KERNEL_SOURCE := kernel/htc/shooteru
+TARGET_KERNEL_CONFIG := shooter_u_defconfig
+
+# Not Building a kernel at this time
+# TARGET_PREBUILT_KERNEL := device/htc/shooteru/prebuilt/zImage
 
 # cat /proc/emmc
 #dev:        size     erasesize name
@@ -93,3 +85,12 @@ BOARD_USERDATAIMAGE_PARTITION_SIZE := 1252770816
 BOARD_BOOTIMAGE_PARTITION_SIZE := 16777216
 BOARD_FLASH_BLOCK_SIZE := 262144
 
+TARGET_RECOVERY_PIXEL_FORMAT := "BGRA_8888"
+TARGET_RECOVERY_UI_LIB := librecovery_ui_shooteru
+TARGET_RECOVERY_INITRC := device/htc/shooteru/recovery/init.rc
+BOARD_SDCARD_DEVICE_PRIMARY := /dev/block/mmcblk1p1
+BOARD_SDCARD_DEVICE_SECONDARY := /dev/block/mmcblk1
+BOARD_SDEXT_DEVICE := /dev/block/mmcblk1p2
+BOARD_USES_MMCUTILS := true
+BOARD_HAS_NO_MISC_PARTITION := true
+BOARD_HAS_NO_SELECT_BUTTON := true
