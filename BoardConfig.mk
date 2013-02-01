@@ -34,7 +34,11 @@ TARGET_BOOTLOADER_BOARD_NAME := shooteru
 
 BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := shooteru
 
+# Data
 BOARD_USE_NEW_LIBRIL_HTC := true
+
+# Bluetooth
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/htc/shooteru/bluetooth
 
 # 3D Support
 TARGET_HARDWARE_3D := true
